@@ -42,36 +42,30 @@ public/
   favicon.svg
 ```
 
-## 記事の書き方
+## 記事の書き方（SEO × E-E-A-T）
 
-`src/content/posts/` に `.mdx` ファイルを追加します。frontmatter は以下の通り。
+詳しくは **[docs/WRITING_GUIDE.md](./docs/WRITING_GUIDE.md)** を必読。雛形は **[docs/post-template.mdx](./docs/post-template.mdx)** をコピーして使います。
 
-```yaml
----
-title: "大学生向けワイヤレスイヤホンおすすめ5選"
-description: "50〜160字。検索意図を意識したリード文と重なる内容で。"
-pubDate: 2026-04-15
-category: "gadget"   # gadget | fashion | life | study
-tags: ["イヤホン", "ワイヤレス"]
-cover: "/images/xxx.jpg"  # 任意
-draft: false
-pr: true   # アフィリエイトを含む場合は true（PRタグが表示されます）
----
+### E-E-A-T を担保するしくみ
 
-import ProductCard from "@/components/ProductCard.astro";
+| 要素 | 実装 |
+| --- | --- |
+| Experience | `experience` frontmatter + `<ExperienceNote>` で使用期間/シーン/検証数を明示 |
+| Expertise  | `authors` コレクションの `credentials`/`expertise`、`methodology` で選定基準 |
+| Authoritativeness | `author`/`reviewedBy` を Person JSON-LD として埋め込み、SNS/websiteも |
+| Trust | `pr` フラグでPR表記、`sources` で出典、`updatedDate`/`lastReviewedDate` で最新性 |
 
-<ProductCard
-  rank={1}
-  brand="SoundCore"
-  name="Liberty 4 NC"
-  price="12,990円"
-  summary="..."
-  pros={["..."]}
-  cons={["..."]}
-  amazon="https://..."
-  rakuten="https://..."
-/>
-```
+### 自動で埋まる構造化データ
+
+- `Article`（author/reviewedBy を Person として）
+- `BreadcrumbList`
+- `WebSite`
+- `FAQPage`（frontmatter `faq` があれば）
+- `ItemList` + `Product` + `Review`（`<ProductCard rating={...}>` から自動生成）
+
+### 著者の追加方法
+
+`src/content/authors/*.json` に追加して、記事 frontmatter で `author: <ファイル名>` と参照します。
 
 ## SEO チェックリスト
 

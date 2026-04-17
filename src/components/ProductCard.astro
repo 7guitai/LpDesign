@@ -8,14 +8,32 @@ export interface Props {
   summary: string;
   pros?: string[];
   cons?: string[];
+  rating?: number;
+  verdict?: string;
   amazon?: string;
   rakuten?: string;
   yahoo?: string;
 }
-const { rank, name, brand, price, image, summary, pros = [], cons = [], amazon, rakuten, yahoo } = Astro.props;
+const {
+  rank, name, brand, price, image, summary, pros = [], cons = [],
+  rating, verdict, amazon, rakuten, yahoo,
+} = Astro.props;
+
+const stars = rating
+  ? Array.from({ length: 5 }, (_, i) => (i + 1 <= Math.round(rating) ? "★" : "☆")).join("")
+  : null;
 ---
 
-<div class="not-prose my-8 overflow-hidden rounded-2xl border border-ink-200 bg-white dark:border-ink-700 dark:bg-ink-800/50">
+<div
+  class="not-prose my-8 overflow-hidden rounded-2xl border border-ink-200 bg-white dark:border-ink-700 dark:bg-ink-800/50"
+  data-product
+  data-name={name}
+  data-brand={brand}
+  data-price={price}
+  data-rating={rating}
+  data-verdict={verdict}
+  data-image={image}
+>
   <div class="grid gap-0 md:grid-cols-[260px_1fr]">
     <div class="relative aspect-square bg-ink-100 dark:bg-ink-700">
       {image && <img src={image} alt={name} loading="lazy" decoding="async" class="h-full w-full object-cover" />}
@@ -29,7 +47,15 @@ const { rank, name, brand, price, image, summary, pros = [], cons = [], amazon, 
       <div>
         {brand && <p class="text-xs uppercase tracking-widest text-ink-500">{brand}</p>}
         <h3 class="mt-1 text-xl font-semibold tracking-tight">{name}</h3>
-        {price && <p class="mt-1 text-sm text-ink-600 dark:text-ink-300">参考価格: {price}</p>}
+        <div class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-600 dark:text-ink-300">
+          {price && <span>参考価格: {price}</span>}
+          {rating && (
+            <span aria-label={`評価 ${rating}点満点中 ${rating}点`}>
+              <span class="text-accent">{stars}</span>
+              <span class="ml-1 text-ink-500">{rating.toFixed(1)}</span>
+            </span>
+          )}
+        </div>
       </div>
       <p class="text-sm leading-relaxed text-ink-700 dark:text-ink-200">{summary}</p>
       {(pros.length > 0 || cons.length > 0) && (
@@ -51,6 +77,11 @@ const { rank, name, brand, price, image, summary, pros = [], cons = [], amazon, 
             </div>
           )}
         </div>
+      )}
+      {verdict && (
+        <p class="rounded-lg border-l-2 border-accent bg-accent-soft/30 p-3 text-sm text-ink-800 dark:bg-ink-900/30 dark:text-ink-100">
+          <span class="mr-1 font-semibold">編集部評:</span>{verdict}
+        </p>
       )}
       <div class="mt-auto flex flex-wrap gap-2 pt-2">
         {amazon && <a class="btn" href={amazon} rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>}

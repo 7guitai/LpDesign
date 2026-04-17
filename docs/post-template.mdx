@@ -1,0 +1,111 @@
+---
+# --- 基本メタ ---
+title: "大学生向け〇〇おすすめ5選｜△△×□□"
+description: "120字前後で、誰が読むべきか・読むと何が分かるかを書く。メインKWと共起語を含める。記事のH1と別表現で書く。"
+pubDate: 2026-04-20
+updatedDate: 2026-04-20
+lastReviewedDate: 2026-04-20
+category: "gadget"        # gadget | fashion | life | study
+tags: ["KW1", "KW2", "大学生"]
+cover: "/images/xxx-hero.jpg"
+pr: true
+
+# --- E-E-A-T ---
+author: editor
+# reviewedBy: expert-yamada  # 監修者がいる場合
+
+experience:
+  usagePeriod: "3ヶ月以上"
+  context: "通学・カフェ作業"
+  itemsTested: 10
+
+methodology:
+  - "価格帯は◯〜◯円で、大学生が現実的に買える範囲を対象にした"
+  - "スペックだけでなく、実際に2週間以上使った体感を重視"
+  - "Amazon/楽天のレビュー◯件以上を参照し、長期故障の傾向も確認"
+
+faq:
+  - q: "〇〇は必要ですか？"
+    a: "結論から言うと△△な人には必要です。理由は〜"
+  - q: "△△と□□、どっちがいい？"
+    a: "〜という人には△△、〜という人には□□がおすすめです。"
+
+sources:
+  - title: "製品公式仕様"
+    url: "https://example.com/product"
+    publisher: "メーカー名"
+    accessedAt: 2026-04-20
+---
+
+import ProductCard from "@/components/ProductCard.astro";
+
+{/* 冒頭リード: 150〜250字。読者の悩みを言い換え、記事を読むメリットを約束 */}
+通学のBGM、講義録音、オンライン授業——。大学生の一日は〇〇なしでは成り立ちません。この記事では、編集部が実際に3ヶ月以上使ってみて「これは大学生に勧められる」と判断した5モデルを紹介します。
+
+## 選び方の3ポイント
+
+1. **ポイント1** — 理由と判断基準
+2. **ポイント2** — 理由と判断基準
+3. **ポイント3** — 理由と判断基準
+
+---
+
+## 1位. 〇〇（総合力No.1）
+
+<ProductCard
+  rank={1}
+  brand="Brand"
+  name="Model Name"
+  price="12,980円"
+  image="/images/product-1.jpg"
+  rating={4.6}
+  summary="実際に◯ヶ月使った感想を1〜2文で。スペックの羅列ではなく体験ベースで。"
+  pros={["良い点1", "良い点2", "良い点3"]}
+  cons={["気になる点1"]}
+  verdict="迷ったらこれ。大学生の初めての一台として間違いない。"
+  amazon="https://www.amazon.co.jp/dp/XXXXXX?tag=YOUR-22"
+  rakuten="https://hb.afl.rakuten.co.jp/..."
+/>
+
+### 実際に使ってみてどうだったか
+
+具体的なエピソード。「満員電車で◯◯だった」「カフェで◯時間使っても◯◯」など、自分でないと書けない1次情報を入れる。
+
+## 2位. 〇〇（◯◯重視の人向け）
+
+<ProductCard
+  rank={2}
+  brand="..."
+  name="..."
+  price="..."
+  rating={4.3}
+  summary="..."
+  pros={["..."]}
+  cons={["..."]}
+  amazon="..."
+/>
+
+{/* 3〜5位も同様に */}
+
+---
+
+## 比較表
+
+| モデル | 価格 | 主要スペック1 | 主要スペック2 | 評価 |
+| --- | --- | --- | --- | --- |
+| Model A | 12,980円 | ◎ | 50h | ★4.6 |
+| Model B | 21,800円 | ○ | 30h | ★4.3 |
+
+## 用途別おすすめ
+
+- **コスパ重視の1台目なら** → Model A
+- **iPhoneユーザーなら** → Model B
+- **音質にこだわるなら** → Model E
+
+## まとめ
+
+迷ったら **Model A** で間違いありません。◯◯な人は **Model B** を検討してください。
+
+---
+
+{/* FAQ, Sources は frontmatter から自動生成されます */}

@@ -1,0 +1,44 @@
+---
+import type { CollectionEntry } from "astro:content";
+export interface Props {
+  author: CollectionEntry<"authors">;
+  reviewedBy?: CollectionEntry<"authors">;
+  pubDate: Date;
+  updatedDate?: Date;
+  lastReviewedDate?: Date;
+  compact?: boolean;
+}
+const { author, reviewedBy, pubDate, updatedDate, lastReviewedDate, compact = false } = Astro.props;
+const fmt = (d: Date) => d.toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric" });
+---
+
+<aside class:list={[
+  "not-prose rounded-2xl border border-ink-100 bg-white p-5 dark:border-ink-800 dark:bg-ink-800/40",
+  compact ? "my-4" : "my-8",
+]}>
+  <div class="flex gap-4">
+    <div class="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-ink-100 dark:bg-ink-700">
+      {author.data.avatar && <img src={author.data.avatar} alt="" class="h-full w-full object-cover" />}
+    </div>
+    <div class="flex-1">
+      <p class="text-xs uppercase tracking-widest text-ink-500">
+        {author.data.role ?? "Author"}
+      </p>
+      <p class="text-base font-semibold tracking-tight">{author.data.name}</p>
+      {!compact && (
+        <p class="mt-1.5 text-sm leading-relaxed text-ink-600 dark:text-ink-300">{author.data.bio}</p>
+      )}
+      {!compact && author.data.credentials.length > 0 && (
+        <ul class="mt-2 list-disc space-y-0.5 pl-4 text-xs text-ink-500">
+          {author.data.credentials.map((c) => <li>{c}</li>)}
+        </ul>
+      )}
+    </div>
+  </div>
+  <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 border-t border-ink-100 pt-3 text-xs text-ink-500 dark:border-ink-800">
+    <span>公開: <time datetime={pubDate.toISOString()}>{fmt(pubDate)}</time></span>
+    {updatedDate && <span>更新: <time datetime={updatedDate.toISOString()}>{fmt(updatedDate)}</time></span>}
+    {lastReviewedDate && <span>最終確認: <time datetime={lastReviewedDate.toISOString()}>{fmt(lastReviewedDate)}</time></span>}
+    {reviewedBy && <span>監修: {reviewedBy.data.name}</span>}
+  </div>
+</aside>
