@@ -1,0 +1,46 @@
+---
+import { CATEGORIES } from "@/consts";
+import type { CollectionEntry } from "astro:content";
+
+export interface Props {
+  post: CollectionEntry<"posts">;
+  featured?: boolean;
+}
+const { post, featured = false } = Astro.props;
+const { data, slug } = post;
+const category = CATEGORIES.find((c) => c.slug === data.category);
+const dateLabel = new Date(data.pubDate).toLocaleDateString("ja-JP", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+---
+
+<article
+  class:list={[
+    "group relative flex flex-col overflow-hidden rounded-2xl border border-ink-100 bg-white transition hover:-translate-y-0.5 hover:shadow-lg dark:border-ink-800 dark:bg-ink-800/40",
+    featured && "md:flex-row md:items-stretch",
+  ]}
+>
+  <a href={`/posts/${slug}`} class="block overflow-hidden" aria-label={data.title}>
+    <div
+      class:list={[
+        "aspect-[16/10] w-full bg-gradient-to-br from-accent-soft to-ink-100 transition duration-500 group-hover:scale-[1.02] dark:from-ink-700 dark:to-ink-800",
+        featured && "md:h-full md:w-[55%] md:aspect-auto",
+      ]}
+      style={data.cover ? `background-image: url('${data.cover}'); background-size: cover; background-position: center;` : ""}
+    />
+  </a>
+  <div class="flex flex-1 flex-col gap-3 p-5 md:p-6">
+    <div class="flex items-center gap-2 text-xs text-ink-500">
+      {category && <span class="tag">{category.name}</span>}
+      <time datetime={new Date(data.pubDate).toISOString()}>{dateLabel}</time>
+    </div>
+    <h3 class:list={["font-semibold leading-snug tracking-tight", featured ? "text-2xl md:text-3xl" : "text-lg"]}>
+      <a href={`/posts/${slug}`} class="after:absolute after:inset-0">
+        {data.title}
+      </a>
+    </h3>
+    <p class="line-clamp-2 text-sm text-ink-600 dark:text-ink-300">{data.description}</p>
+  </div>
+</article>

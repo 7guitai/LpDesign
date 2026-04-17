@@ -1,0 +1,111 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Prose from "@/components/Prose.astro";
+import PostCard from "@/components/PostCard.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import { CATEGORIES, SITE } from "@/consts";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+interface Props { post: CollectionEntry<"posts"> }
+const { post } = Astro.props;
+const { Content, headings } = await post.render();
+const { data } = post;
+const category = CATEGORIES.find((c) => c.slug === data.category);
+
+const pubDate = new Date(data.pubDate).toISOString();
+const updatedDate = data.updatedDate ? new Date(data.updatedDate).toISOString() : pubDate;
+const dateLabel = new Date(data.pubDate).toLocaleDateString("ja-JP", {
+  year: "numeric", month: "long", day: "numeric",
+});
+
+const allPosts = await getCollection("posts", ({ data }) => !data.draft);
+const related = allPosts
+  .filter((p) => p.slug !== post.slug && p.data.category === post.data.category)
+  .slice(0, 3);
+
+const articleLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: data.title,
+  description: data.description,
+  image: data.cover ? new URL(data.cover, SITE.url).toString() : new URL(SITE.defaultOgImage, SITE.url).toString(),
+  datePublished: pubDate,
+  dateModified: updatedDate,
+  author: { "@type": "Organization", name: SITE.author },
+  publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
+  mainEntityOfPage: new URL(`/posts/${post.slug}`, SITE.url).toString(),
+  inLanguage: SITE.lang,
+};
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
+    category && { "@type": "ListItem", position: 2, name: category.name, item: new URL(`/category/${category.slug}`, SITE.url).toString() },
+    { "@type": "ListItem", position: 3, name: data.title, item: new URL(`/posts/${post.slug}`, SITE.url).toString() },
+  ].filter(Boolean),
+};
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  image={data.cover}
+  type="article"
+  publishedTime={pubDate}
+  modifiedTime={updatedDate}
+  jsonLd={[articleLd, breadcrumbLd]}
+>
+  <article class="container-narrow py-10 md:py-16">
+    <nav aria-label="パンくず" class="mb-6 text-xs text-ink-500">
+      <a href="/" class="hover:text-ink-900 dark:hover:text-ink-50">Home</a>
+      {category && <> / <a href={`/category/${category.slug}`} class="hover:text-ink-900 dark:hover:text-ink-50">{category.name}</a></>}
+    </nav>
+
+    <header class="mx-auto max-w-prose">
+      <div class="flex flex-wrap items-center gap-3 text-xs text-ink-500">
+        {category && <a href={`/category/${category.slug}`} class="tag">{category.name}</a>}
+        <time datetime={pubDate}>{dateLabel}</time>
+        {data.pr && <span class="tag">PR</span>}
+      </div>
+      <h1 class="mt-4 text-3xl font-semibold leading-tight tracking-tight md:text-4xl">{data.title}</h1>
+      <p class="mt-4 text-base leading-relaxed text-ink-600 dark:text-ink-300">{data.description}</p>
+    </header>
+
+    {headings.length > 0 && (
+      <aside class="mx-auto mt-10 max-w-prose rounded-2xl border border-ink-100 bg-white p-5 dark:border-ink-800 dark:bg-ink-800/30">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-ink-500">目次</p>
+        <ol class="space-y-1.5 text-sm">
+          {headings.filter((h) => h.depth === 2).map((h) => (
+            <li><a href={`#${h.slug}`} class="hover:text-ink-900 dark:hover:text-ink-50">{h.text}</a></li>
+          ))}
+        </ol>
+      </aside>
+    )}
+
+    <section class="mt-10">
+      <Prose>
+        <Content />
+      </Prose>
+    </section>
+
+    {data.tags.length > 0 && (
+      <div class="mx-auto mt-12 flex max-w-prose flex-wrap gap-2">
+        {data.tags.map((t) => <span class="tag">#{t}</span>)}
+      </div>
+    )}
+  </article>
+
+  {related.length > 0 && (
+    <section class="container-narrow py-14">
+      <h2 class="mb-6 text-xl font-semibold tracking-tight">同じカテゴリの記事</h2>
+      <div class="grid gap-6 md:grid-cols-3">
+        {related.map((p) => <PostCard post={p} />)}
+      </div>
+    </section>
+  )}
+</BaseLayout>

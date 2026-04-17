@@ -1,0 +1,62 @@
+---
+export interface Props {
+  rank?: number;
+  name: string;
+  brand?: string;
+  price?: string;
+  image?: string;
+  summary: string;
+  pros?: string[];
+  cons?: string[];
+  amazon?: string;
+  rakuten?: string;
+  yahoo?: string;
+}
+const { rank, name, brand, price, image, summary, pros = [], cons = [], amazon, rakuten, yahoo } = Astro.props;
+---
+
+<div class="not-prose my-8 overflow-hidden rounded-2xl border border-ink-200 bg-white dark:border-ink-700 dark:bg-ink-800/50">
+  <div class="grid gap-0 md:grid-cols-[260px_1fr]">
+    <div class="relative aspect-square bg-ink-100 dark:bg-ink-700">
+      {image && <img src={image} alt={name} loading="lazy" decoding="async" class="h-full w-full object-cover" />}
+      {rank !== undefined && (
+        <span class="absolute left-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-ink-900 text-xs font-bold text-ink-50">
+          {rank}
+        </span>
+      )}
+    </div>
+    <div class="flex flex-col gap-3 p-5 md:p-6">
+      <div>
+        {brand && <p class="text-xs uppercase tracking-widest text-ink-500">{brand}</p>}
+        <h3 class="mt-1 text-xl font-semibold tracking-tight">{name}</h3>
+        {price && <p class="mt-1 text-sm text-ink-600 dark:text-ink-300">参考価格: {price}</p>}
+      </div>
+      <p class="text-sm leading-relaxed text-ink-700 dark:text-ink-200">{summary}</p>
+      {(pros.length > 0 || cons.length > 0) && (
+        <div class="grid gap-3 sm:grid-cols-2">
+          {pros.length > 0 && (
+            <div class="rounded-lg bg-ink-50 p-3 text-sm dark:bg-ink-900/40">
+              <p class="mb-1 text-xs font-semibold text-ink-500">良いところ</p>
+              <ul class="list-disc space-y-0.5 pl-4">
+                {pros.map((p) => <li>{p}</li>)}
+              </ul>
+            </div>
+          )}
+          {cons.length > 0 && (
+            <div class="rounded-lg bg-ink-50 p-3 text-sm dark:bg-ink-900/40">
+              <p class="mb-1 text-xs font-semibold text-ink-500">気になる点</p>
+              <ul class="list-disc space-y-0.5 pl-4">
+                {cons.map((c) => <li>{c}</li>)}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+      <div class="mt-auto flex flex-wrap gap-2 pt-2">
+        {amazon && <a class="btn" href={amazon} rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>}
+        {rakuten && <a class="btn-outline" href={rakuten} rel="sponsored nofollow noopener" target="_blank">楽天で見る</a>}
+        {yahoo && <a class="btn-outline" href={yahoo} rel="sponsored nofollow noopener" target="_blank">Yahoo!で見る</a>}
+      </div>
+    </div>
+  </div>
+</div>
