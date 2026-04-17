@@ -88,17 +88,21 @@ public/
 4. **リール動画** — 30秒で1〜2商品の使用感
 5. **プロフィール欄** — ブログ URL へ導線
 
-## デプロイ
+## デプロイ（Cloudflare Pages）
 
-Vercel / Cloudflare Pages / Netlify どれでも可。推奨は **Vercel**。
+詳細は **[docs/DEPLOY.md](./docs/DEPLOY.md)** 参照。要点:
 
-```
-Build command: npm run build
-Output directory: dist
-```
+| 項目 | 値 |
+| --- | --- |
+| Framework preset | Astro |
+| Build command | `npm run build` |
+| Output directory | `dist` |
+| 環境変数 | `NODE_VERSION=20` |
 
-本番前にやること:
-- `src/consts.ts` の SITE.url, twitter, instagram を実値に
-- `astro.config.mjs` の `site` を実ドメインに
-- `public/robots.txt` の Sitemap URL を実ドメインに
-- `/og-default.png` を `public/` に配置（1200×630）
+GitHub連携で自動デプロイ。セキュリティヘッダは `public/_headers`、キャッシュも同ファイルで 1年 immutable。
+
+本番前:
+- `src/consts.ts` の `SITE.url` を実ドメインに
+- `astro.config.mjs` の `site` も同じく
+- `public/robots.txt` の Sitemap URL を本番ドメインに
+- `public/og-default.png`（1200×630）を配置

@@ -1,0 +1,5 @@
+# 末尾スラッシュを正規化（お好みで）
+# /posts/:slug/  /posts/:slug  301
+
+# 旧URLから新URLへのリダイレクト例
+# /old-path  /new-path  301
