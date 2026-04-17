@@ -10,8 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "cf:preview": "wrangler pages dev ./dist",
-    "cf:deploy": "wrangler pages deploy ./dist"
+    "cf:preview": "wrangler pages dev ./dist --compatibility-date=2025-01-01",
+    "cf:deploy": "wrangler pages deploy ./dist --project-name=kyampus --commit-dirty=true"
   },
   "engines": {
     "node": ">=20"

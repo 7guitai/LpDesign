@@ -58,7 +58,9 @@ npm run build
 npm run cf:deploy
 ```
 
-初回デプロイ時にプロジェクト名（`kyampus`）を聞かれます。以降は同じ名前で上書きされます。
+`cf:deploy` は `wrangler pages deploy ./dist --project-name=kyampus` を実行します。プロジェクト名を変更する場合は `package.json` の該当スクリプトを編集してください。
+
+> **注意**: リポジトリルートに `wrangler.toml` を置かないこと。置くとCloudflare Pagesが Workers 用の `wrangler deploy` を自動実行してデプロイに失敗します（Pagesは dashboard の Build 設定のみで動きます）。
 
 ---
 
