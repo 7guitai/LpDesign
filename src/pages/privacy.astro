@@ -6,28 +6,30 @@ import { SITE } from "@/consts";
 
 <BaseLayout title="プライバシーポリシー" description={`${SITE.name}のプライバシーポリシー。アクセス解析、Cookie、広告配信に関する情報を記載しています。`}>
   <section class="container-narrow py-14">
-    <h1 class="text-3xl font-semibold tracking-tight md:text-4xl">プライバシーポリシー</h1>
-    <p class="mt-3 text-sm text-ink-500">最終更新日: 2026-04-17</p>
-    <div class="mt-10">
-      <Prose>
-        <h2>個人情報の取り扱い</h2>
-        <p>本サイトは、お問い合わせ等でお預かりした個人情報を適切に管理し、ご本人の同意なく第三者に開示することはありません。</p>
+    <div class="mx-auto max-w-prose">
+      <h1 class="title-serif text-3xl font-bold text-ink-900 md:text-4xl">プライバシーポリシー</h1>
+      <p class="mt-3 text-sm text-ink-500">最終更新日: 2026-04-17</p>
+      <div class="mt-10">
+        <Prose>
+          <h2>個人情報の取り扱い</h2>
+          <p>本サイトは、お問い合わせ等でお預かりした個人情報を適切に管理し、ご本人の同意なく第三者に開示することはありません。</p>
 
-        <h2>アクセス解析ツールについて</h2>
-        <p>本サイトでは Google Analytics を利用しています。Cookie を使用してトラフィックデータを収集しますが、これらは匿名で収集され、個人を特定するものではありません。Cookieの無効化はブラウザ設定から可能です。</p>
+          <h2>アクセス解析ツールについて</h2>
+          <p>本サイトでは Google Analytics を利用しています。Cookie を使用してトラフィックデータを収集しますが、これらは匿名で収集され、個人を特定するものではありません。Cookieの無効化はブラウザ設定から可能です。</p>
 
-        <h2>広告配信について</h2>
-        <p>本サイトは、Amazonアソシエイト、楽天アフィリエイト、もしもアフィリエイト、A8.net 等の第三者配信の広告サービスを利用する場合があります。広告配信事業者は、ユーザーの興味に応じた広告を表示するために Cookie を使用することがあります。</p>
+          <h2>広告配信について</h2>
+          <p>本サイトは、Amazonアソシエイト、楽天アフィリエイト、もしもアフィリエイト、A8.net 等の第三者配信の広告サービスを利用する場合があります。広告配信事業者は、ユーザーの興味に応じた広告を表示するために Cookie を使用することがあります。</p>
 
-        <h2>Amazonアソシエイト</h2>
-        <p>{SITE.name} は Amazon.co.jp を宣伝しリンクすることによってサイトが紹介料を獲得できる手段を提供することを目的に設定された、アフィリエイトプログラムである、Amazonアソシエイト・プログラムの参加者です。</p>
+          <h2>Amazonアソシエイト</h2>
+          <p>{SITE.name} は Amazon.co.jp を宣伝しリンクすることによってサイトが紹介料を獲得できる手段を提供することを目的に設定された、アフィリエイトプログラムである、Amazonアソシエイト・プログラムの参加者です。</p>
 
-        <h2>免責事項</h2>
-        <p>掲載情報の正確性には努めていますが、内容を保証するものではありません。情報を利用して生じたいかなる損害に関しても責任を負いかねます。</p>
+          <h2>免責事項</h2>
+          <p>掲載情報の正確性には努めていますが、内容を保証するものではありません。情報を利用して生じたいかなる損害に関しても責任を負いかねます。</p>
 
-        <h2>お問い合わせ</h2>
-        <p>本ポリシーに関するお問い合わせは Instagram DM（<a href={`https://instagram.com/${SITE.instagram}`}>@{SITE.instagram}</a>）までお願いします。</p>
-      </Prose>
+          <h2>お問い合わせ</h2>
+          <p>本ポリシーに関するお問い合わせは Instagram DM（<a href={`https://instagram.com/${SITE.instagram}`}>@{SITE.instagram}</a>）までお願いします。</p>
+        </Prose>
+      </div>
     </div>
   </section>
 </BaseLayout>

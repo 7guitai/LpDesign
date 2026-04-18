@@ -19,16 +19,16 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft && data.ca
   description={`${category.name}カテゴリの記事一覧。${category.description}`}
 >
   <section class="container-narrow pt-16 pb-10 md:pt-20">
-    <p class="text-sm text-ink-500">カテゴリ</p>
-    <h1 class="title-serif mt-2 text-3xl font-bold md:text-4xl">{category.name}</h1>
-    <p class="mt-4 max-w-xl leading-relaxed text-ink-600 dark:text-ink-300">{category.description}</p>
+    <p class="text-xs tracking-widest text-ink-500">カテゴリ</p>
+    <h1 class="title-serif mt-3 text-3xl font-semibold text-ink-900 md:text-4xl">{category.name}</h1>
+    <p class="mt-4 max-w-xl leading-[1.9] text-ink-600">{category.description}</p>
   </section>
 
-  <section class="container-narrow border-t border-ink-200 py-6 dark:border-ink-800">
+  <section class="container-narrow border-t border-ink-200 py-6">
     {posts.length === 0 ? (
-      <p class="py-8 text-ink-500">記事はまだありません。近日公開予定です。</p>
+      <p class="py-10 text-ink-500">記事はまだありません。近日公開予定です。</p>
     ) : (
-      <div class="divide-y divide-ink-200 dark:divide-ink-800">
+      <div class="divide-y divide-ink-200">
         {posts.map((p) => <PostCard post={p} />)}
       </div>
     )}

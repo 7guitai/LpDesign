@@ -17,16 +17,16 @@ const faqLd = {
 };
 ---
 
-<section class="not-prose my-12">
-  <h2 class="title-serif text-xl font-bold">{heading}</h2>
-  <div class="mt-4 divide-y divide-ink-200 border-t border-b border-ink-200 dark:divide-ink-800 dark:border-ink-800">
+<section class="not-prose my-14">
+  <h2 class="title-serif text-lg font-semibold text-ink-900">{heading}</h2>
+  <div class="mt-5 divide-y divide-ink-200 border-t border-b border-ink-200">
     {items.map((it) => (
-      <details class="group py-4">
-        <summary class="flex cursor-pointer list-none items-start justify-between gap-4 text-base font-medium">
+      <details class="group py-5">
+        <summary class="flex cursor-pointer list-none items-start justify-between gap-4 text-[15px] font-medium text-ink-900">
           <span>Q. {it.q}</span>
           <span class="mt-1 shrink-0 text-ink-400 transition group-open:rotate-45">＋</span>
         </summary>
-        <p class="mt-3 text-sm leading-relaxed text-ink-600 dark:text-ink-300">A. {it.a}</p>
+        <p class="mt-3 text-sm leading-[1.9] text-ink-600">A. {it.a}</p>
       </details>
     ))}
   </div>

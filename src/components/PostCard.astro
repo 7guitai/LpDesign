@@ -16,16 +16,16 @@ const dateLabel = new Date(data.pubDate).toLocaleDateString("ja-JP", {
 });
 ---
 
-<article class="group py-6">
+<article class="group py-7">
   <a href={`/posts/${slug}`} class="block">
-    <div class="flex items-center gap-3 text-xs text-ink-500">
+    <div class="flex items-center gap-2 text-xs text-ink-500">
       <time datetime={new Date(data.pubDate).toISOString()}>{dateLabel}</time>
-      {category && <><span>·</span><span>{category.name}</span></>}
+      {category && <><span class="text-ink-300">·</span><span>{category.name}</span></>}
     </div>
-    <h3 class="title-serif mt-2 text-xl font-bold leading-snug text-ink-900 group-hover:underline underline-offset-4 dark:text-ink-50 md:text-2xl">
+    <h3 class="title-serif mt-2.5 text-xl font-semibold leading-[1.5] text-ink-900 group-hover:underline underline-offset-4 md:text-[22px]">
       {data.title}
     </h3>
-    <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-600 dark:text-ink-300">
+    <p class="mt-2.5 line-clamp-2 text-sm leading-relaxed text-ink-600">
       {data.description}
     </p>
   </a>

@@ -6,26 +6,28 @@ import { SITE } from "@/consts";
 
 <BaseLayout title="このサイトについて" description={`${SITE.name}は、大学生が本当に使いたくなるおしゃれなアイテムを厳選して紹介するメディアです。`}>
   <section class="container-narrow py-14 md:py-20">
-    <p class="text-xs uppercase tracking-[0.2em] text-ink-500">About</p>
-    <h1 class="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">このサイトについて</h1>
+    <div class="mx-auto max-w-prose">
+      <p class="text-xs tracking-widest text-ink-500">このサイトについて</p>
+      <h1 class="title-serif mt-3 text-3xl font-bold text-ink-900 md:text-4xl">{SITE.name} とは</h1>
 
-    <div class="mt-10">
-      <Prose>
-        <p>
-          <strong>{SITE.name}</strong> は、大学生の日常を少しだけ豊かにする「ちょうどいい」アイテムを紹介するメディアです。
-        </p>
-        <h2>コンセプト</h2>
-        <p>高すぎない、安っぽくない。浮かない、でも無難すぎない。そんなラインを探して、実際に使ったうえで紹介しています。</p>
-        <h2>扱うカテゴリ</h2>
-        <ul>
-          <li>ガジェット（イヤホン、キーボード、PC周り）</li>
-          <li>ファッション（シンプルで長く使える服・小物）</li>
-          <li>暮らし（一人暮らし向け雑貨・家電）</li>
-          <li>勉強（文具、アプリ、集中環境）</li>
-        </ul>
-        <h2>Instagram</h2>
-        <p>ブログで紹介した商品の実物写真や、リールでの使用感を <a href={`https://instagram.com/${SITE.instagram}`}>@{SITE.instagram}</a> で投稿しています。</p>
-      </Prose>
+      <div class="mt-10">
+        <Prose>
+          <p>
+            <strong>{SITE.name}</strong> は、大学生の日常を少しだけ豊かにする「ちょうどいい」アイテムを紹介するメディアです。
+          </p>
+          <h2>コンセプト</h2>
+          <p>高すぎない、安っぽくない。浮かない、でも無難すぎない。そんなラインを探して、実際に使ったうえで紹介しています。</p>
+          <h2>扱うカテゴリ</h2>
+          <ul>
+            <li>ガジェット（イヤホン、キーボード、PC周り）</li>
+            <li>ファッション（シンプルで長く使える服・小物）</li>
+            <li>暮らし（一人暮らし向け雑貨・家電）</li>
+            <li>勉強（文具、アプリ、集中環境）</li>
+          </ul>
+          <h2>Instagram</h2>
+          <p>ブログで紹介した商品の実物写真や、リールでの使用感を <a href={`https://instagram.com/${SITE.instagram}`}>@{SITE.instagram}</a> で投稿しています。</p>
+        </Prose>
+      </div>
     </div>
   </section>
 </BaseLayout>

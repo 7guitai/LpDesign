@@ -55,8 +55,7 @@ ldBlocks.unshift(websiteLd);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#f7f7f6" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#15140f" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" />
 
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
@@ -92,17 +91,6 @@ ldBlocks.unshift(websiteLd);
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600;700&display=swap"
       rel="stylesheet"
     />
-
-    <!-- No-FOUC dark mode -->
-    <script is:inline>
-      (() => {
-        const stored = localStorage.getItem("theme");
-        const prefers = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        if (stored === "dark" || (!stored && prefers)) {
-          document.documentElement.classList.add("dark");
-        }
-      })();
-    </script>
 
     {ldBlocks.map((ld) => (
       <script type="application/ld+json" set:html={JSON.stringify(ld)} />

@@ -95,7 +95,7 @@ const breadcrumbLd = {
   modifiedTime={updatedDate}
   jsonLd={[articleLd, breadcrumbLd]}
 >
-  <article class="container-narrow py-12 md:py-20">
+  <article class="container-narrow py-14 md:py-20">
     <div class="mx-auto max-w-prose">
       <nav aria-label="パンくず" class="text-xs text-ink-500">
         <a href="/" class="hover:underline underline-offset-4">Home</a>
@@ -103,8 +103,8 @@ const breadcrumbLd = {
       </nav>
 
       <header class="mt-8">
-        <h1 class="title-serif text-3xl font-bold leading-[1.35] md:text-[40px] md:leading-[1.3]">{data.title}</h1>
-        <p class="mt-6 text-base leading-[1.9] text-ink-600 dark:text-ink-300">{data.description}</p>
+        <h1 class="title-serif text-[28px] font-bold leading-[1.4] text-ink-900 md:text-[38px] md:leading-[1.35]">{data.title}</h1>
+        <p class="mt-7 text-[15px] leading-[1.95] text-ink-600">{data.description}</p>
         <AuthorCard
           author={author}
           reviewedBy={reviewedBy}
@@ -114,7 +114,7 @@ const breadcrumbLd = {
           variant="byline"
         />
         {data.pr && (
-          <p class="mt-2 text-xs text-ink-500">※本記事にはアフィリエイト広告が含まれます（PR）</p>
+          <p class="mt-3 text-xs text-ink-500">※本記事にはアフィリエイト広告が含まれます（PR）</p>
         )}
       </header>
 
@@ -129,12 +129,12 @@ const breadcrumbLd = {
       {data.methodology.length > 0 && <MethodologyBox items={data.methodology} />}
 
       {headings.filter((h) => h.depth === 2).length > 1 && (
-        <nav aria-label="目次" class="my-10 border-t border-b border-ink-200 py-5 dark:border-ink-800">
-          <p class="text-sm text-ink-500">目次</p>
-          <ol class="mt-3 space-y-1.5 text-sm">
+        <nav aria-label="目次" class="my-10 border-t border-b border-ink-200 py-6">
+          <p class="text-xs tracking-widest text-ink-500">目次</p>
+          <ol class="mt-4 space-y-2 text-sm">
             {headings.filter((h) => h.depth === 2).map((h, i) => (
               <li class="flex gap-3">
-                <span class="text-ink-400 tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                <span class="text-ink-300 tabular-nums">{String(i + 1).padStart(2, "0")}</span>
                 <a href={`#${h.slug}`} class="hover:underline underline-offset-4">{h.text}</a>
               </li>
             ))}
@@ -142,7 +142,7 @@ const breadcrumbLd = {
         </nav>
       )}
 
-      <div class="mt-10">
+      <div class="mt-12">
         <Prose>
           <Content />
         </Prose>
@@ -163,9 +163,9 @@ const breadcrumbLd = {
   </article>
 
   {related.length > 0 && (
-    <section class="container-narrow border-t border-ink-200 py-12 dark:border-ink-800">
-      <h2 class="title-serif text-xl font-bold">関連記事</h2>
-      <div class="mt-6 divide-y divide-ink-200 dark:divide-ink-800">
+    <section class="container-narrow border-t border-ink-200 py-14">
+      <h2 class="title-serif text-lg font-semibold text-ink-900">関連記事</h2>
+      <div class="mt-6 divide-y divide-ink-200">
         {related.map((p) => <PostCard post={p} />)}
       </div>
     </section>

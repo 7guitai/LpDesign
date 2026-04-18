@@ -7,11 +7,11 @@ const { items, title = "どうやって選んだか" } = Astro.props;
 if (!items || items.length === 0) return null;
 ---
 
-<details class="not-prose my-8 border-t border-b border-ink-200 py-4 dark:border-ink-800">
-  <summary class="cursor-pointer list-none text-sm text-ink-500 hover:text-ink-900 dark:hover:text-ink-50">
+<details class="not-prose my-8 border-t border-b border-ink-200 py-4">
+  <summary class="cursor-pointer list-none text-sm text-ink-500 hover:text-ink-900">
     ＋ {title}（クリックで展開）
   </summary>
-  <ol class="mt-4 space-y-2 pl-5 text-sm leading-relaxed text-ink-700 dark:text-ink-200">
+  <ol class="mt-4 space-y-2 pl-5 text-sm leading-[1.9] text-ink-700">
     {items.map((item) => <li class="list-decimal">{item}</li>)}
   </ol>
 </details>
