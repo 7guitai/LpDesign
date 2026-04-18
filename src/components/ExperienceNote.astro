@@ -9,28 +9,9 @@ const hasData = usagePeriod || context || itemsTested;
 if (!hasData) return null;
 ---
 
-<div class="not-prose my-8 rounded-2xl border-l-4 border-accent bg-accent-soft/30 p-5 dark:bg-ink-800/40">
-  <p class="text-xs font-semibold uppercase tracking-widest text-accent">
-    Experience — 実際に使ったうえでのレビューです
-  </p>
-  <dl class="mt-3 grid gap-3 text-sm sm:grid-cols-3">
-    {itemsTested !== undefined && (
-      <div>
-        <dt class="text-ink-500">検証した製品数</dt>
-        <dd class="mt-0.5 font-semibold text-ink-900 dark:text-ink-50">{itemsTested}製品</dd>
-      </div>
-    )}
-    {usagePeriod && (
-      <div>
-        <dt class="text-ink-500">使用期間</dt>
-        <dd class="mt-0.5 font-semibold text-ink-900 dark:text-ink-50">{usagePeriod}</dd>
-      </div>
-    )}
-    {context && (
-      <div>
-        <dt class="text-ink-500">使用シーン</dt>
-        <dd class="mt-0.5 font-semibold text-ink-900 dark:text-ink-50">{context}</dd>
-      </div>
-    )}
-  </dl>
-</div>
+<p class="not-prose my-6 border-l-2 border-ink-400 pl-4 text-sm leading-relaxed text-ink-600 dark:border-ink-500 dark:text-ink-300">
+  この記事は{itemsTested && <><b class="text-ink-900 dark:text-ink-50">{itemsTested}製品</b>を</>}
+  {usagePeriod && <><b class="text-ink-900 dark:text-ink-50">{usagePeriod}</b>、</>}
+  {context && <>{context}で</>}
+  実際に使い比べた上で書いています。
+</p>
