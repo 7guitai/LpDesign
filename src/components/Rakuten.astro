@@ -1,0 +1,30 @@
+---
+export interface Props {
+  /** 楽天市場の商品URL（もしもアフィリエイト/楽天アフィリエイトで発行した URLをそのまま貼る） */
+  url?: string;
+  /** 検索キーワードでフォールバック */
+  search?: string;
+  label?: string;
+  block?: boolean;
+}
+
+const { url, search, label = "楽天で見る", block = true } = Astro.props;
+const href =
+  url ??
+  (search
+    ? `https://search.rakuten.co.jp/search/mall/${encodeURIComponent(search)}/`
+    : "#");
+---
+
+<a
+  href={href}
+  rel="sponsored nofollow noopener"
+  target="_blank"
+  class:list={[
+    "group not-prose no-underline inline-flex items-center justify-center gap-2 rounded-md border border-ink-900 bg-white px-5 py-3 text-sm font-semibold text-ink-900 transition hover:bg-ink-50",
+    block && "my-4 w-full sm:w-auto sm:min-w-[240px]",
+  ]}
+>
+  <span>{label}</span>
+  <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
+</a>

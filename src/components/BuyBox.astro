@@ -1,0 +1,31 @@
+---
+import Amazon from "./Amazon.astro";
+import Rakuten from "./Rakuten.astro";
+
+export interface Props {
+  /** 商品名 */
+  name: string;
+  /** ブランド名（任意） */
+  brand?: string;
+  /** Amazon ASIN。これだけ指定すれば Amazon ボタンが出る */
+  amazonAsin?: string;
+  /** または完全なAmazon URL */
+  amazonUrl?: string;
+  /** 楽天市場のURL（アフィリエイト済みURL） */
+  rakutenUrl?: string;
+  /** 補足（※価格は変動します 等） */
+  note?: string;
+}
+
+const { name, brand, amazonAsin, amazonUrl, rakutenUrl, note } = Astro.props;
+---
+
+<aside class="not-prose my-10 border-t border-b border-ink-200 py-6">
+  {brand && <p class="text-xs tracking-widest text-ink-500">{brand}</p>}
+  <p class="title-serif mt-1 text-lg font-semibold text-ink-900">{name}</p>
+  <div class="mt-4 flex flex-wrap gap-3">
+    {(amazonAsin || amazonUrl) && <Amazon asin={amazonAsin} url={amazonUrl} block={false} />}
+    {rakutenUrl && <Rakuten url={rakutenUrl} block={false} />}
+  </div>
+  {note && <p class="mt-3 text-xs text-ink-500">{note}</p>}
+</aside>

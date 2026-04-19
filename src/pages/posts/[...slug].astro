@@ -7,8 +7,11 @@ import ExperienceNote from "@/components/ExperienceNote.astro";
 import MethodologyBox from "@/components/MethodologyBox.astro";
 import FaqList from "@/components/FaqList.astro";
 import Sources from "@/components/Sources.astro";
+import ShareButtons from "@/components/ShareButtons.astro";
+import BackToTop from "@/components/BackToTop.astro";
 import { getCollection, getEntry, type CollectionEntry } from "astro:content";
 import { CATEGORIES, SITE } from "@/consts";
+import { readingTime } from "@/utils/readingTime";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
@@ -26,6 +29,8 @@ const reviewedBy = data.reviewedBy ? await getEntry(data.reviewedBy) : undefined
 
 const pubDate = new Date(data.pubDate).toISOString();
 const updatedDate = data.updatedDate ? new Date(data.updatedDate).toISOString() : pubDate;
+
+const minutes = readingTime(post.body);
 
 const allPosts = await getCollection("posts", ({ data }) => !data.draft);
 const related = allPosts
@@ -113,10 +118,28 @@ const breadcrumbLd = {
           lastReviewedDate={data.lastReviewedDate}
           variant="byline"
         />
-        {data.pr && (
-          <p class="mt-3 text-xs text-ink-500">※本記事にはアフィリエイト広告が含まれます（PR）</p>
-        )}
+        <div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-500">
+          <span>読了 約{minutes}分</span>
+          {data.pr && <><span class="text-ink-300">·</span><span>本記事にはアフィリエイト広告が含まれます（PR）</span></>}
+        </div>
       </header>
+
+      {data.cover && (
+        <figure class="not-prose mt-10">
+          <div class="overflow-hidden rounded-sm bg-ink-100">
+            <img
+              src={data.cover}
+              alt={data.title}
+              width="1200"
+              height="675"
+              loading="eager"
+              decoding="async"
+              class="w-full"
+              style="aspect-ratio: 16/9; object-fit: cover;"
+            />
+          </div>
+        </figure>
+      )}
 
       {data.experience && (
         <ExperienceNote
@@ -151,6 +174,17 @@ const breadcrumbLd = {
       {data.faq.length > 0 && <FaqList items={data.faq} />}
       {data.sources.length > 0 && <Sources items={data.sources} />}
 
+      {data.tags.length > 0 && (
+        <div class="not-prose mt-12 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+          <span class="text-xs tracking-widest text-ink-500">TAGS</span>
+          {data.tags.map((t) => (
+            <a href={`/tag/${t}`} class="text-ink-700 hover:text-ink-900 hover:underline underline-offset-4">#{t}</a>
+          ))}
+        </div>
+      )}
+
+      <ShareButtons title={data.title} url={canonical} />
+
       <AuthorCard
         author={author}
         reviewedBy={reviewedBy}
@@ -170,4 +204,6 @@ const breadcrumbLd = {
       </div>
     </section>
   )}
+
+  <BackToTop />
 </BaseLayout>

@@ -112,14 +112,19 @@ sources:                         # ← 信頼性を担保する出典
 
 ## 6. コンポーネントリファレンス
 
-| コンポーネント | 用途 | 出力 |
+| コンポーネント | 用途 | 備考 |
 | --- | --- | --- |
-| `<ProductCard />` | ランキング内の個別商品 | ItemList + Product + Review JSON-LD（クライアント側で自動生成） |
+| `<Amazon asin="..." />` | Amazon アフィリエイトボタン | `src/consts.ts` の `amazonTag` を自動付与。`asin` または `url` / `search` で指定可能 |
+| `<Rakuten url="..." />` | 楽天アフィリエイトボタン | もしも/楽天アフィリエイトで発行した URL をそのまま貼る |
+| `<BuyBox name="..." amazonAsin="..." rakutenUrl="..." />` | Amazon + 楽天の2ボタンまとめ | 商品紹介後に置く購入導線 |
+| `<Figure src="..." alt="..." caption="..." />` | キャプション付き画像 | `size="wide"` で本文幅より広く表示可能 |
 | `<ExperienceNote />` | 記事冒頭で Experience を示す | HTML のみ |
 | `<MethodologyBox />` | 選定基準を示す | HTML のみ |
 | `<FaqList />` | FAQ | FAQPage JSON-LD を自動出力 |
 | `<Sources />` | 参考出典 | HTML のみ |
 | `<AuthorCard />` | 著者情報（記事の冒頭と末尾で自動表示） | Article.author / reviewedBy JSON-LD（post page 側） |
+
+詳細は [`AFFILIATE_GUIDE.md`](./AFFILIATE_GUIDE.md) と [`IMAGE_GUIDE.md`](./IMAGE_GUIDE.md) を参照。
 
 ---
 

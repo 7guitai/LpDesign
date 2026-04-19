@@ -1,0 +1,31 @@
+---
+export interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  /** 画面幅に対する表示幅。"full"(本文幅) または "wide"(やや広め) */
+  size?: "full" | "wide";
+  /** 画像の縦横比を固定（例: "16/9", "4/3"）。未指定なら画像本来の比率 */
+  aspect?: string;
+}
+const { src, alt, caption, size = "full", aspect } = Astro.props;
+---
+
+<figure class:list={[
+  "not-prose my-10",
+  size === "wide" && "md:-mx-16 lg:-mx-24",
+]}>
+  <div class="overflow-hidden rounded-sm bg-ink-100">
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      decoding="async"
+      class="w-full"
+      style={aspect ? `aspect-ratio: ${aspect}; object-fit: cover;` : ""}
+    />
+  </div>
+  {caption && (
+    <figcaption class="mt-3 text-center text-xs text-ink-500">{caption}</figcaption>
+  )}
+</figure>

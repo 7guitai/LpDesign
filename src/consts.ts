@@ -10,6 +10,13 @@ export const SITE = {
   defaultOgImage: "/og-default.png",
   twitter: "@kyampus",
   instagram: "kyampus",
+
+  // --- アフィリエイト ---
+  // Amazonアソシエイトのトラッキングid（"kyampus-22"のような形式）。
+  // 承認後に正しい値に書き換えてください。
+  amazonTag: "kyampus-22",
+  // 楽天のアフィリエイトID（任意）。リンクに自動付与する場合に使用。
+  rakutenAffiliateId: "",
 } as const;
 
 export const CATEGORIES = [

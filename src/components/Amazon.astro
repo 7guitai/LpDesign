@@ -1,0 +1,41 @@
+---
+import { SITE } from "@/consts";
+
+export interface Props {
+  /** 商品の ASIN（例: B0CHL5BZ1P）。URLに tag=xxx を付けた形で出力 */
+  asin?: string;
+  /** ASINが分からない場合、完全なAmazon URLを直接指定 */
+  url?: string;
+  /** 検索キーワードでフォールバック（ASIN/URL 未指定時） */
+  search?: string;
+  /** ボタンに表示する文言 */
+  label?: string;
+  /** ブロックか inline か */
+  block?: boolean;
+}
+
+const { asin, url, search, label = "Amazonで見る", block = true } = Astro.props;
+
+let href = "#";
+if (url) {
+  const sep = url.includes("?") ? "&" : "?";
+  href = `${url}${sep}tag=${SITE.amazonTag}`;
+} else if (asin) {
+  href = `https://www.amazon.co.jp/dp/${asin}?tag=${SITE.amazonTag}`;
+} else if (search) {
+  href = `https://www.amazon.co.jp/s?k=${encodeURIComponent(search)}&tag=${SITE.amazonTag}`;
+}
+---
+
+<a
+  href={href}
+  rel="sponsored nofollow noopener"
+  target="_blank"
+  class:list={[
+    "group not-prose no-underline inline-flex items-center justify-center gap-2 rounded-md border border-ink-900 bg-ink-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-ink-700",
+    block && "my-4 w-full sm:w-auto sm:min-w-[240px]",
+  ]}
+>
+  <span>{label}</span>
+  <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
+</a>
